@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한글 주소 영문 변환기 | 해외 직구 주소 작성법</title>
+    <meta name="description" content="한국 주소를 입력하면 자동으로 미국식 영문 주소 순서로 변환해 줍니다. 해외 직구, 배송지 입력할 때 유용하게 사용하세요.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🏠 영문 주소 변환기</h1>
+        <nav><a href="index.html">홈</a> | <a href="gameboy-filter.html">겜보이 필터</a></nav>
+    </header>
+    <main class="container">
+        <h2>한글 주소를 영어 주소로 바꾸기</h2>
+        <p>예시: 서울시 강남구 테헤란로 123</p>
+        <input type="text" id="korAddress" placeholder="한글 주소를 입력하세요">
+        <button onclick="convertAddress()">변환하기</button>
+        <div id="result" class="result-box" style="display:none;"></div>
+    </main>
+    <script>
+        function convertAddress() {
+            const input = document.getElementById('korAddress').value.trim();
+            if(!input) return alert('주소를 입력해주세요.');
+
+            // 간단하게 띄어쓰기 기준으로 단어 순서를 뒤집음 (한국식: 대->소, 영어식: 소->대)
+            const words = input.split(' ');
+            const reversedWords = words.reverse();
+            const englishResult = reversedWords.join(', ') + ', South Korea';
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `<strong>변환된 영문 주소:</strong><br>${englishResult}<br><br><small>* 본 결과는 정적 변환 결과이므로, 고유 명사(도로명)의 정확한 알파벳 표기는 확인이 필요할 수 있습니다.</small>`;
+        }
+    </script>
+</body>
+</html>
