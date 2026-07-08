@@ -24,11 +24,30 @@
             <li><a href="eng-address.html"><strong>🏠 영문 주소 변환기:</strong> 한국어 주소를 해외 직구용 영어 주소로 간편하게 바꿉니다.</a></li>
         </ul>
         <hr>
-        <h3>추천 가이드 및 읽을거리</h3>
-        <ul>
-            <li><a href="content1.html">해외 직구할 때 필수! 영문 주소 올바르게 적는 법</a></li>
-            <li><a href="content2.html">레트로 감성의 끝판왕, 90년대 겜보이의 역사</a></li>
-            </ul>
+        <h3>📚 추천 가이드 및 읽을거리 (자동 업데이트)</h3>
+<ul id="autoDynamicList">
+    <li>글 목록을 불러오는 중입니다...</li>
+</ul>
+
+<script>
+    // 메인 페이지가 켜지면 글 상자 열기
+    fetch('contents.json')
+        .then(response => response.json())
+        .then(data => {
+            const listContainer = document.getElementById('autoDynamicList');
+            listContainer.innerHTML = ''; // 기존 로딩 메시지 지우기
+
+            // 상자 안에 있는 글 개수만큼 반복해서 목록 만들기
+            data.forEach(article => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="content-view.html?id=${article.id}">
+                    <strong>${article.title}</strong><br>
+                    <span style="font-size:0.9rem; color:#718096;">${article.description}</span>
+                </a>`;
+                listContainer.appendChild(li);
+            });
+        });
+</script>
     </main>
     <footer><p>© 2026 소소한 툴 박스. All rights reserved.</p></footer>
 </body>
