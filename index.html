@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>소소한 유틸리티 & 재미있는 툴 박스</title>
-    <meta name="description" content="일상의 불편함을 해소하는 영문 주소 변환기부터 추억의 겜보이 감성 필터까지, 유용하고 재미있는 도구들을 무료로 이용해보세요.">
+    <meta name="description" content="일상의 불편함을 해소하는 영문 주소 변환기부터 추억의 겜보이 감성 필터, 이미지 압축, 크기 조절, 자르기, 회전까지 무료로 이용해보세요.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,6 +31,7 @@
                         <span>내 사진을 8비트 레트로 픽셀 아트 스타일로 변환해 줍니다.</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="eng-address.html">
                         <div class="card-icon-box icon-2">
@@ -40,13 +41,44 @@
                         <span>한국어 주소를 해외 직구용 영어 주소로 간편하게 바꿉니다.</span>
                     </a>
                 </li>
+
                 <li>
-                    <a href="image-tools.html">
+                    <a href="image-tools.html#compress-section">
                         <div class="card-icon-box icon-3">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z"></path><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"></path><line x1="12" y1="3" x2="12" y2="14"></line></svg>
                         </div>
-                        <strong>🖼️ 이미지 마법사</strong>
-                        <span>이미지 압축, 가로 크기 조절, 자르기, 회전을 설치 없이 웹에서 바로 처리합니다.</span>
+                        <strong>🗜️ 이미지 용량 압축</strong>
+                        <span>화질 저하를 최소화하면서 이미지의 파일 용량을 줄여 줍니다.</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="image-tools.html#resize-section">
+                        <div class="card-icon-box icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                        </div>
+                        <strong>📏 가로 크기 조절</strong>
+                        <span>원하는 가로 너비(px)에 맞추어 이미지 크기를 정확히 조정합니다.</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="image-tools.html#rotate-section">
+                        <div class="card-icon-box icon-2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        </div>
+                        <strong>🔄 이미지 회전하기</strong>
+                        <span>원치 않는 방향으로 찍힌 사진을 좌우 90도씩 회전시킵니다.</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="image-tools.html#crop-section">
+                        <div class="card-icon-box icon-3">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"></path><path d="M18 22V8a2 2 0 0 0-2-2H2"></path></svg>
+                        </div>
+                        <strong>✂️ 이미지 잘라내기</strong>
+                        <span>이미지의 가운데를 기준 삼아 완벽한 정방형 크롭을 적용합니다.</span>
                     </a>
                 </li>
             </ul>
@@ -67,7 +99,7 @@
     </footer>
 
     <script>
-        // contents.json 파일에서 콘텐츠 정보를 동적으로 가져와 3열 카드로 뿌려주는 스크립트
+        // contents.json 파일 동적 렌더링
         fetch('contents.json')
             .then(response => response.json())
             .then(data => {
