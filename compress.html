@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 용량 압축 - 소소한 툴 박스</title>
+    <meta name="description" content="화질 저하 없이 웹에서 간편하게 이미지 파일 용량을 압축하고 줄여보세요.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .canvas-container { text-align: center; margin: 24px 0; max-height: 400px; overflow: auto; background: var(--color-border); border-radius: 8px; padding: 12px; }
+        .range-box { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+        .range-box input { flex: 1; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>소소한 툴 박스</h1>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="gameboy-filter.html">겜보이 필터</a>
+            <a href="eng-address.html">영문주소 변환</a>
+            <a href="image-tools.html" class="active">이미지 마법사</a>
+        </nav>
+    </header>
+
+    <main>
+        <section style="margin-bottom: 32px;">
+            <h2 style="font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">🗜️ 이미지 용량 압축</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem;">압축 품질을 조절하여 이미지 화질 손실을 최소화하면서 파일 크기를 줄입니다.</p>
+        </section>
+
+        <section class="result-box" style="margin-bottom: 32px;">
+            <input type="file" id="imageInput" accept="image/*" style="margin-bottom: 16px;">
+            <div class="canvas-container">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+            
+            <div class="range-box">
+                <label style="font-size: 0.9rem; color: var(--color-text-muted);">압축 품질:</label>
+                <input type="range" id="qualityRange" min="10" max="100" value="80">
+                <span id="qualityVal" style="font-weight: 600; min-width: 40px; text-align: right;">80%</span>
+            </div>
+            <button id="downloadBtn">압축된 이미지 다운로드</button>
+        </section>
+
+        <div class="adsbygoogle-container"></div>
+    </main>
+
+    <footer>
+        <p>© 2026 소소한 툴 박스. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const canvas = document.getElementById('editorCanvas');
+        const ctx = canvas.getContext('2d');
+        let originalImage = new Image();
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => { originalImage.src = event.target.result; };
+            reader.readAsDataURL(file);
+        });
+
+        originalImage.onload = () => {
+            canvas.width = originalImage.width;
+            canvas.height = originalImage.height;
+            ctx.drawImage(originalImage, 0, 0);
+        };
+
+        const qualityRange = document.getElementById('qualityRange');
+        const qualityVal = document.getElementById('qualityVal');
+        qualityRange.addEventListener('input', (e) => {
+            qualityVal.innerText = e.target.value + '%';
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
+            const quality = parseInt(qualityRange.value) / 100;
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const link = document.createElement('a');
+            link.download = 'compressed_image.jpg';
+            link.href = dataUrl;
+            link.click();
+        });
+    </script>
+</body>
+</html>

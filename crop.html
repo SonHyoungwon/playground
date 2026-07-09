@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정사각형 잘라내기 - 소소한 툴 박스</title>
+    <meta name="description" content="가운데 중심에 비례하여 이미지를 가로세로 비율이 완벽한 1:1 정사각형으로 크롭하세요.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .canvas-container { text-align: center; margin: 24px 0; max-height: 400px; overflow: auto; background: var(--color-border); border-radius: 8px; padding: 12px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>소소한 툴 박스</h1>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="gameboy-filter.html">겜보이 필터</a>
+            <a href="eng-address.html">영문주소 변환</a>
+            <a href="image-tools.html" class="active">이미지 마법사</a>
+        </nav>
+    </header>
+
+    <main>
+        <section style="margin-bottom: 32px;">
+            <h2 style="font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">✂️ 이미지 잘라내기</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem;">업로드한 이미지의 정가운데 영역을 1:1 황금비율 정사각형으로 크롭하여 다운로드합니다.</p>
+        </section>
+
+        <section class="result-box" style="margin-bottom: 32px;">
+            <input type="file" id="imageInput" accept="image/*" style="margin-bottom: 16px;">
+            <div class="canvas-container">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+            
+            <button id="cropBtn">정중앙 자르기 적용 & 다운로드</button>
+        </section>
+
+        <div class="adsbygoogle-container"></div>
+    </main>
+
+    <footer>
+        <p>© 2026 소소한 툴 박스. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const canvas = document.getElementById('editorCanvas');
+        const ctx = canvas.getContext('2d');
+        let originalImage = new Image();
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => { originalImage.src = event.target.result; };
+            reader.readAsDataURL(file);
+        });
+
+        originalImage.onload = () => {
+            canvas.width = originalImage.width;
+            canvas.height = originalImage.height;
+            ctx.drawImage(originalImage, 0, 0);
+        };
+
+        document.getElementById('cropBtn').addEventListener('click', () => {
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
+            
+            const size = Math.min(canvas.width, canvas.height);
+            const sourceX = (canvas.width - size) / 2;
+            const sourceY = (canvas.height - size) / 2;
+
+            const tempImg = new Image();
+            tempImg.src = canvas.toDataURL();
+            tempImg.onload = () => {
+                canvas.width = size;
+                canvas.height = size;
+                ctx.drawImage(tempImg, sourceX, sourceY, size, size, 0, 0, size, size);
+
+                // 결과물 저장
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                const link = document.createElement('a');
+                link.download = 'cropped_square.jpg';
+                link.href = dataUrl;
+                link.click();
+            };
+        });
+    </script>
+</body>
+</html>
