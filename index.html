@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소소한 유틸리티 & 재미있는 툴 천국</title>
+    <title>소소한 유틸리티 & 재미있는 툴 박스</title>
     <meta name="description" content="일상의 불편함을 해소하는 영문 주소 변환기부터 추억의 겜보이 감성 필터까지, 유용하고 재미있는 도구들을 무료로 이용해보세요.">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,44 +11,73 @@
     <header>
         <h1>소소한 툴 박스</h1>
         <nav>
-            <a href="index.html">홈</a> | 
-            <a href="gameboy-filter.html">겜보이 필터</a> | 
+            <a href="index.html" style="color: var(--color-text); font-weight: 600;">홈</a>
+            <a href="gameboy-filter.html">겜보이 필터</a>
             <a href="eng-address.html">영문주소 변환</a>
             <a href="image-tools.html">이미지 마법사</a>
         </nav>
     </header>
+
     <main>
-        <h2>환영합니다! 어떤 도구가 필요하신가요?</h2>
-        <ul>
-            <li><a href="gameboy-filter.html"><strong>📷 추억의 겜보이 필터:</strong> 내 사진을 8비트 레트로 픽셀 아트로 변환해보세요.</a></li>
-            <li><a href="eng-address.html"><strong>🏠 영문 주소 변환기:</strong> 한국어 주소를 해외 직구용 영어 주소로 간편하게 바꿉니다.</a></li>
-        </ul>
-        <hr>
-        <h3>📚 추천 가이드 및 읽을거리 (자동 업데이트)</h3>
-<ul id="autoDynamicList">
-    <li>글 목록을 불러오는 중입니다...</li>
-</ul>
+        <section style="margin-bottom: var(--space-section);">
+            <h2 style="font-size: 1.2rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 16px; border: none; padding: 0;">TOOLS</h2>
+            <ul>
+                <li>
+                    <a href="gameboy-filter.html">
+                        <strong style="color: var(--color-point); display: block; margin-bottom: 4px;">🎮 겜보이 카메라 필터</strong>
+                        <span style="font-size: 0.9rem; color: var(--color-text-muted);">내 사진을 8비트 레트로 픽셀 아트 스타일로 변환해 줍니다.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="eng-address.html">
+                        <strong style="color: var(--color-point); display: block; margin-bottom: 4px;">🏠 영문 주소 변환기</strong>
+                        <span style="font-size: 0.9rem; color: var(--color-text-muted);">한국어 주소를 해외 직구용 영어 주소로 간편하게 바꿉니다.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="image-tools.html">
+                        <strong style="color: var(--color-point); display: block; margin-bottom: 4px;">🖼️ 이미지 마법사</strong>
+                        <span style="font-size: 0.9rem; color: var(--color-text-muted);">이미지 압축, 가로 크기 조절, 자르기, 회전을 설치 없이 웹에서 바로 처리합니다.</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
 
-<script>
-    // 메인 페이지가 켜지면 글 상자 열기
-    fetch('contents.json')
-        .then(response => response.json())
-        .then(data => {
-            const listContainer = document.getElementById('autoDynamicList');
-            listContainer.innerHTML = ''; // 기존 로딩 메시지 지우기
+        <div class="adsbygoogle-container"></div>
 
-            // 상자 안에 있는 글 개수만큼 반복해서 목록 만들기
-            data.forEach(article => {
-                const li = document.createElement('li');
-                li.innerHTML = `<a href="content-view.html?id=${article.id}">
-                    <strong>${article.title}</strong><br>
-                    <span style="font-size:0.9rem; color:#718096;">${article.description}</span>
-                </a>`;
-                listContainer.appendChild(li);
-            });
-        });
-</script>
+        <section style="margin-top: var(--space-section);">
+            <h2 style="font-size: 1.2rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 16px; border: none; padding: 0;">RESOURCES</h2>
+            <ul id="autoDynamicList">
+                <li style="border: none; padding: 0; background: none; color: var(--color-text-muted);">콘텐츠를 불러오는 중입니다...</li>
+            </ul>
+        </section>
     </main>
-    <footer><p>© 2026 소소한 툴 박스. All rights reserved.</p></footer>
+
+    <footer>
+        <p>© 2026 소소한 툴 박스. All rights reserved.</p>
+    </footer>
+
+    <script>
+        fetch('contents.json')
+            .then(response => response.json())
+            .then(data => {
+                const listContainer = document.getElementById('autoDynamicList');
+                listContainer.innerHTML = ''; // 로딩 메시지 삭제
+
+                data.forEach(article => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <a href="content-view.html?id=${article.id}">
+                            <strong style="display: block; margin-bottom: 4px; font-size: 1.05rem;">${article.title}</strong>
+                            <span style="font-size: 0.9rem; color: var(--color-text-muted);">${article.description}</span>
+                        </a>
+                    `;
+                    listContainer.appendChild(li);
+                });
+            })
+            .catch(err => {
+                console.error("콘텐츠 목록을 불러오지 못했습니다.", err);
+            });
+    </script>
 </body>
 </html>

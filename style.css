@@ -1,141 +1,219 @@
-/* 1. 전체적인 글자 크기와 배경색을 부드럽게 바꾸기 */
+/* ==========================================================================
+   1. DESIGN TOKENS (디자인 토큰 정의)
+   ========================================================================== */
+:root {
+  /* Colors */
+  --color-bg: #fafafa;
+  --color-text: #111111;
+  --color-text-muted: #666666;
+  --color-point: #0029ff;
+  --color-point-hover: #001ecc;
+  --color-border: #eaeaea;
+  --color-card-bg: #ffffff;
+
+  /* Typography */
+  --font-title: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+
+  /* Layout & Spacing */
+  --max-width: 720px;
+  --space-section: 80px;
+  --space-item: 24px;
+}
+
+/* ==========================================================================
+   2. BASE STYLES & RESET
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    line-height: 1.7;
-    margin: 0;
-    padding: 0;
-    color: #2d3748;
-    background-color: #f7fafc; /* 눈이 편안한 밝은 회색 바탕 */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 2. 놀이터 간판(헤더)을 세련된 남색으로 바꾸고 가운데 정렬 */
+/* ==========================================================================
+   3. LAYOUT SYSTEM (최대 폭 720px 제한)
+   ========================================================================== */
+header, main, footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 header {
-    background: linear-gradient(135deg, #4a5568, #2d3748); /* 고급스러운 그라데이션 */
-    color: #ffffff;
-    padding: 40px 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  padding-top: var(--space-section);
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-border);
 }
 
+main {
+  padding-top: 40px;
+  padding-bottom: var(--space-section);
+}
+
+footer {
+  padding-top: 40px;
+  padding-bottom: var(--space-section);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   4. NAVIGATION & HEADER ELEMENTS
+   ========================================================================== */
 header h1 {
-    margin: 0 0 15px 0;
-    font-size: 2.2rem;
-    letter-spacing: -1px;
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
 }
 
-/* 3. 메뉴 이동 버튼들을 귀여운 알약 모양으로 바꾸기 */
+nav {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+}
+
 nav a {
-    color: #e2e8f0;
-    margin: 0 8px;
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background-color: rgba(255,255,255,0.1);
-    transition: all 0.3s ease; /* 마우스를 올리면 부드럽게 변해요 */
-    font-size: 0.95rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 nav a:hover {
-    background-color: #ffffff;
-    color: #2d3748;
-    font-weight: bold;
+  color: var(--color-text);
 }
 
-/* 4. 장난감 방들의 하얀색 도화지(메인 박스) 꾸미기 */
-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #ffffff;
-    border-radius: 16px; /* 모서리를 둥글게 깎아서 귀엽게 */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* 은은한 그림자 효과 */
-}
-
-/* 5. 글자 제목들 예쁘게 다듬기 */
-h2 {
-    color: #1a202c;
-    font-size: 1.6rem;
-    margin-top: 0;
-    border-bottom: 3px solid #edf2f7;
-    padding-bottom: 10px;
-}
-
-/* 6. 글씨 쓰는 상자(입력창)를 둥글고 깔끔하게 */
-input[type="text"], input[type="file"] {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px;
-    font-size: 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-input[type="text"]:focus {
-    border-color: #4c51bf; /* 클릭하면 예쁜 보라색 테두리가 생겨요 */
-}
-
-/* 7. 변환하기 버튼을 듬직하고 멋진 보라색으로 바꾸기 */
-button {
-    width: 100%;
-    padding: 14px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    background-color: #4c51bf;
-    color: white;
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(76, 81, 191, 0.2);
-    transition: all 0.2s;
-}
-
-button:hover {
-    background-color: #434190;
-    transform: translateY(-2px); /* 마우스를 올리면 버튼이 살짝 위로 둥실 떠올라요 */
-}
-
-/* 8. 결과가 나오는 상자 디자인 */
-.result-box {
-    background: #f7fafc;
-    border-left: 5px solid #4c51bf; /* 왼쪽에 포인트 선 주기 */
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-    font-size: 1.1rem;
-}
-
-/* 9. 메뉴 목록을 예쁜 '카드 박스' 형태로 만들기 */
+/* ==========================================================================
+   5. COMPONENTS (버튼, 카드, 입력창)
+   ========================================================================== */
+/* 리스트를 미니멀한 카드 스타일로 */
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-item);
+  margin-top: 24px;
 }
 
 ul li {
-    background: #ffffff;
-    border: 1px solid #edf2f7;
-    margin-bottom: 12px;
-    padding: 15px 20px;
-    border-radius: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
+  padding: 24px;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: border-color 0.15s ease;
 }
 
 ul li:hover {
-    transform: translateX(5px); /* 마우스를 올리면 오른쪽으로 스르륵 움직여요 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: var(--color-text);
 }
 
 ul li a {
-    text-decoration: none;
-    color: #4a5568;
-    display: block;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-/* 10. 발판(푸터) 정리 */
-footer {
-    text-align: center;
-    padding: 40px 20px;
-    color: #a0aec0;
-    font-size: 0.85rem;
+/* 평평하고(Flat) 단정한 버튼 */
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+button:hover {
+  background-color: var(--color-point);
+}
+
+/* 입력창 */
+input[type="text"], input[type="file"], input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card-bg);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+  border-color: var(--color-point);
+}
+
+/* 캔버스 및 결과창 */
+canvas {
+  max-width: 100%;
+  height: auto;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin: 24px 0;
+}
+
+.result-box {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  border-radius: 8px;
+  margin-top: var(--space-item);
+}
+
+/* ==========================================================================
+   6. GOOGLE ADSENSE SPACE (구글 애드센스 광고 마크업용 공간)
+   ========================================================================== */
+.adsbygoogle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-section) 0; /* 섹션 간격 크기만큼 넓은 여백 확보 */
+  padding: 20px;
+  background-color: #f0f0f0; /* 광고 구분을 위한 극도의 미니멀 그레이 */
+  border: 1px dashed var(--color-border);
+  border-radius: 6px;
+  min-height: 100px;
+}
+
+.adsbygoogle-container::before {
+  content: "SPONSORED AD";
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES (모바일 반응형 대응)
+   ========================================================================== */
+@media (max-width: 768px) {
+  :root {
+    --space-section: 48px; /* 모바일에서는 여백을 조금 줄여 가독성 확보 */
+    --space-item: 16px;
+  }
+  
+  header {
+    padding-top: var(--space-section);
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
 }
