@@ -1,8 +1,8 @@
 /* ==========================================================================
-   1. DESIGN TOKENS (디자인 토큰 정의 - 변수 추가)
+   1. DESIGN TOKENS (디자인 토큰 정의)
    ========================================================================== */
 :root {
-  /* 기존 변수 유지 */
+  /* Colors */
   --color-bg: #fafafa;
   --color-text: #111111;
   --color-text-muted: #666666;
@@ -11,31 +11,115 @@
   --color-border: #eaeaea;
   --color-card-bg: #ffffff;
 
+  /* Typography */
   --font-title: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
 
+  /* Layout & Spacing */
   --max-width: 720px;
+  --max-width-wide: 1024px;
   --space-section: 80px;
   --space-item: 24px;
 
-  /* 🌟 [새로 추가된 토큰] 도구별 아이콘 배경색 및 확장 폭 */
-  --max-width-wide: 1024px;
-  --icon-bg-1: #eef2ff; /* 겜보이: 연한 인디고 */
-  --icon-bg-2: #ecfdf5; /* 영문주소: 연한 에메랄드 */
-  --icon-bg-3: #eff6ff; /* 이미지마법사: 연한 블루 */
+  /* 🌟 [수정] 통일된 아이콘 배경색 토큰 */
+  --icon-bg-tools: #edf2ff;     /* TOOLS 섹션: 차분한 연한 블루 */
+  --icon-bg-resources: #f1f1f1; /* RESOURCES 섹션: 정갈한 연한 그레이 */
 }
 
-/* ... 2. BASE STYLES & 3. LAYOUT SYSTEM & 4. NAVIGATION 스타일은 기존과 동일 ... */
+/* ==========================================================================
+   2. BASE STYLES & RESET
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* 🌟 [수정] 3. LAYOUT SYSTEM 중 main에 와이드 폭 예외 적용을 위한 클래스 추가 */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  /* 🌟 [수정] 4. 바디 전체에 좌우 최소 40px 여백 안전장치 추가 */
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* ==========================================================================
+   3. LAYOUT SYSTEM (중앙 정렬 및 여백 제어)
+   ========================================================================== */
+header, main, footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* 🌟 [수정] 3열 그리드가 필요한 메인 영역을 위한 와이드 컨테이너 규칙 */
 main.wide-layout {
   max-width: var(--max-width-wide);
 }
 
+header {
+  /* 🌟 [수정] 1. 헤더 영역에 여백 및 하단 경계선 스타일 강제 적용 */
+  padding-top: var(--space-section);
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+main {
+  padding-top: 48px;
+  padding-bottom: var(--space-section);
+}
+
+footer {
+  padding-top: 40px;
+  padding-bottom: var(--space-section);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
 /* ==========================================================================
-   5. COMPONENTS (버튼, 카드, 입력창 - 그리드형 아이콘 카드로 변경)
+   4. NAVIGATION (밑줄 링크에서 탭 버튼 스타일로 전면 개편)
    ========================================================================== */
-/* 3열 그리드 레이아웃 변경 */
+header h1 {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* 탭 사이의 여백 */
+}
+
+/* 🌟 [수정] 1. 둥글고 단정한 알약형 탭 스타일 적용 */
+nav a {
+  display: inline-block;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: var(--color-border);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+nav a:hover, nav a.active {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ==========================================================================
+   5. COMPONENTS (그리드 카드 및 아이콘 박스 제어)
+   ========================================================================== */
 ul {
   list-style: none;
   display: grid;
@@ -44,7 +128,6 @@ ul {
   margin-top: 24px;
 }
 
-/* 카드 스타일: border 제거, 그림자 추가, hover 시 떠오르는 효과 */
 ul li {
   background-color: var(--color-card-bg);
   border-radius: 12px;
@@ -64,7 +147,7 @@ ul li a {
   display: block;
 }
 
-/* 아이콘 박스 공통 스타일에 따른 배치 */
+/* 🌟 [수정] 3. 아이콘 박스 톤앤매너 통일 */
 .card-icon-box {
   width: 48px;
   height: 48px;
@@ -75,12 +158,19 @@ ul li a {
   margin-bottom: 20px;
 }
 
-/* 개별 아이콘 배경색 지정 (CSS 변수 활용) */
-.icon-1 { background-color: var(--icon-bg-1); color: #4f46e5; }
-.icon-2 { background-color: var(--icon-bg-2); color: #059669; }
-.icon-3 { background-color: var(--icon-bg-3); color: #2563eb; }
+/* TOOLS 섹션 아이콘 컬러 (연블루 배경 + 포인트 블루 아이콘) */
+.icon-tool {
+  background-color: var(--icon-bg-tools);
+  color: var(--color-point);
+}
 
-/* 카드 내부 타이포그래피 정밀 조정 */
+/* RESOURCES 섹션 아이콘 컬러 (연그레이 배경 + 어두운 차콜 아이콘) */
+.icon-resource {
+  background-color: var(--icon-bg-resources);
+  color: var(--color-text-muted);
+}
+
+/* 카드 내부 텍스트 스타일 조정 */
 ul li strong {
   display: block;
   font-family: var(--font-title);
@@ -98,7 +188,7 @@ ul li span {
   line-height: 1.6;
 }
 
-/* 평평하고(Flat) 단정한 버튼 및 입력창은 기존 스타일 유지 */
+/* 버튼 및 입력창 스타일 */
 button {
   width: 100%;
   padding: 14px;
@@ -135,6 +225,7 @@ canvas {
   border-radius: 8px;
   margin: 24px 0;
 }
+
 .result-box {
   background-color: var(--color-card-bg);
   border: 1px solid var(--color-border);
@@ -143,10 +234,30 @@ canvas {
   margin-top: var(--space-item);
 }
 
-/* ... 6. GOOGLE ADSENSE SPACE 스타일은 기존과 동일 ... */
+/* ==========================================================================
+   6. GOOGLE ADSENSE SPACE (구글 애드센스 영역)
+   ========================================================================== */
+.adsbygoogle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-section) 0;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px dashed var(--color-border);
+  border-radius: 6px;
+  min-height: 100px;
+}
+
+.adsbygoogle-container::before {
+  content: "SPONSORED AD";
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
 
 /* ==========================================================================
-   7. MEDIA QUERIES (모바일 반응형 대응 - 1열 그리드로 변경)
+   7. MEDIA QUERIES (모바일 반응형 대응)
    ========================================================================== */
 @media (max-width: 768px) {
   :root {
@@ -154,6 +265,11 @@ canvas {
     --space-item: 16px;
   }
   
+  body {
+    padding-left: 20px; /* 모바일에서는 화면 크기를 고려해 좌우 여백을 20px로 조율 */
+    padding-right: 20px;
+  }
+
   header {
     padding-top: var(--space-section);
   }
@@ -162,7 +278,6 @@ canvas {
     font-size: 1.5rem;
   }
 
-  /* 모바일에서는 그리드를 1열로 세로 정렬 */
   ul {
     grid-template-columns: 1fr;
     gap: var(--space-item);
