@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>소소한 유틸리티 & 재미있는 툴 박스</title>
-    <meta name="description" content="일상의 불편함을 해소하는 영문 주소 변환기부터 추억의 겜보이 감성 필터, 이미지 압축, 크기 조절, 자르기, 회전까지 무료로 이용해보세요.">
+    <title>소소한 유틸리티 & 이미지 툴 박스</title>
+    <meta name="description" content="설치 없이 웹에서 바로 해결하는 이미지 용량 압축, 사이즈 조절, 자르기, 회전 도구를 무료로 이용해보세요.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,9 +12,10 @@
         <h1>소소한 툴 박스</h1>
         <nav>
             <a href="index.html" class="active">홈</a>
-            <a href="gameboy-filter.html">겜보이 필터</a>
-            <a href="eng-address.html">영문주소 변환</a>
-            <a href="image-tools.html">이미지 마법사</a>
+            <a href="compress.html">용량 압축</a>
+            <a href="resize.html">크기 조절</a>
+            <a href="rotate.html">이미지 회전</a>
+            <a href="crop.html">정방형 크롭</a>
         </nav>
     </header>
 
@@ -22,26 +23,6 @@
         <section style="margin-bottom: var(--space-section);">
             <h2 style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); letter-spacing: 0.05em; margin-bottom: 24px; border: none; padding: 0;">TOOLS</h2>
             <ul>
-                <li>
-                    <a href="gameboy-filter.html">
-                        <div class="card-icon-box icon-tool">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line><rect x="9" y="6" width="6" height="6"></rect></svg>
-                        </div>
-                        <strong>겜보이 카메라 필터</strong>
-                        <span>내 사진을 8비트 레트로 픽셀 아트 스타일로 변환해 줍니다.</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="eng-address.html">
-                        <div class="card-icon-box icon-tool">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                        </div>
-                        <strong>영문 주소 변환기</strong>
-                        <span>한국어 주소를 해외 직구용 영어 주소로 간편하게 바꿉니다.</span>
-                    </a>
-                </li>
-
                 <li>
                     <a href="compress.html">
                         <div class="card-icon-box icon-tool">
@@ -99,7 +80,6 @@
     </footer>
 
     <script>
-        // contents.json 파일 동적 렌더링
         fetch('contents.json')
             .then(response => response.json())
             .then(data => {
