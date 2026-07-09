@@ -3,57 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무료 이미지 편집기 | 이미지 압축, 크기 조절, 자르기, 회전</title>
-    <meta name="description" content="설치 없이 웹에서 바로 사용하는 이미지 도구. 이미지 용량 압축, 사이즈 조절, 사진 잘라내기, 상하좌우 회전 기능을 무료로 이용하세요.">
+    <title>이미지 마법사 - 소소한 툴 박스</title>
+    <meta name="description" content="용량 압축, 크기 조절, 자르기, 회전을 원스톱으로 지원하는 이미지 마법사입니다.">
     <link rel="stylesheet" href="style.css">
     <style>
-        .tool-box { border: 1px solid var(--color-border); padding: 24px; border-radius: 12px; margin-bottom: 24px; background: #fff; }
-        .canvas-container { text-align: center; margin: 24px 0; max-height: 400px; overflow: auto; background: #eee; border-radius: 8px; }
+        .tool-box { background-color: var(--color-card-bg); border: 1px solid var(--color-border); padding: 32px 24px; border-radius: 12px; margin-bottom: 24px; }
+        .canvas-container { text-align: center; margin: 24px 0; max-height: 400px; overflow: auto; background: var(--color-border); border-radius: 8px; padding: 12px; }
         .btn-group { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .btn-group button { flex: 1; min-width: 100px; }
-        .range-box { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+        .range-box { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
         .range-box input { flex: 1; }
     </style>
 </head>
 <body>
     <header>
-        <h1>🖼️ 초간단 이미지 마법사</h1>
+        <h1>소소한 툴 박스</h1>
         <nav>
             <a href="index.html">홈</a>
             <a href="gameboy-filter.html">겜보이 필터</a>
             <a href="eng-address.html">영문주소 변환</a>
+            <a href="image-tools.html" class="active">이미지 마법사</a>
         </nav>
     </header>
-    <main>
-        <h2>쉽고 빠른 이미지 편집 도구</h2>
-        <p style="color: var(--color-text-muted); margin-bottom: 24px;">작업할 이미지 파일을 먼저 선택해 주세요!</p>
-        <input type="file" id="imageInput" accept="image/*" style="margin-bottom: 32px;">
 
-        <div class="canvas-container">
-            <canvas id="editorCanvas"></canvas>
-        </div>
+    <main>
+        <section style="margin-bottom: 32px;">
+            <h2 style="font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">🖼️ 이미지 마법사</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem;">파일을 선택한 후 아래 원하는 기능 영역에서 개별 가공을 진행하세요.</p>
+        </section>
+
+        <section class="result-box" style="margin-bottom: 32px;">
+            <input type="file" id="imageInput" accept="image/*" style="margin-bottom: 16px;">
+            <div class="canvas-container">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+        </section>
 
         <div id="compress-section" class="tool-box">
-            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🗜️ 1. 이미지 용량 압축 & 저장</h3>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🗜️ 이미지 용량 압축 & 저장</h3>
             <div class="range-box">
-                <label>압축 품질:</label>
+                <label style="font-size: 0.9rem; color: var(--color-text-muted);">압축 품질:</label>
                 <input type="range" id="qualityRange" min="10" max="100" value="80">
-                <span id="qualityVal" style="font-weight: 600;">80%</span>
+                <span id="qualityVal" style="font-weight: 600; min-width: 40px; text-align: right;">80%</span>
             </div>
             <button id="downloadBtn">압축된 이미지 다운로드</button>
         </div>
 
         <div id="resize-section" class="tool-box">
-            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">📏 2. 가로 크기(너비) 조절</h3>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">📏 가로 크기(너비) 조절</h3>
             <div class="range-box">
-                <label>원하는 너비(px):</label>
-                <input type="number" id="resizeWidth" placeholder="예: 500" style="width: 120px;">
-                <button id="resizeBtn" style="width: auto;">크기 변경 적용</button>
+                <label style="font-size: 0.9rem; color: var(--color-text-muted);">목표 너비(px):</label>
+                <input type="number" id="resizeWidth" placeholder="예: 500" style="max-width: 160px;">
+                <button id="resizeBtn" style="width: auto;">크기 적용</button>
             </div>
         </div>
 
         <div id="rotate-section" class="tool-box">
-            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🔄 3. 이미지 회전하기</h3>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">🔄 이미지 회전하기</h3>
             <div class="btn-group">
                 <button id="rotateLeftBtn">왼쪽으로 90°</button>
                 <button id="rotateRightBtn">오른쪽으로 90°</button>
@@ -61,10 +67,12 @@
         </div>
 
         <div id="crop-section" class="tool-box">
-            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">✂️ 4. 정중앙 크롭 (정사각형 자르기)</h3>
-            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 16px;">가운데를 기준으로 정사각형 모양만 남기고 사진을 가볍게 잘라냅니다.</p>
-            <button id="cropBtn" style="background-color: #e53e3e;">가운데 정방형으로 자르기</button>
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">✂️ 정사각형 잘라내기</h3>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 16px;">가운데 중심 비율에 맞추어 이미지를 1:1 정방형으로 잘라냅니다.</p>
+            <button id="cropBtn">정중앙 자르기 적용</button>
         </div>
+
+        <div class="adsbygoogle-container"></div>
     </main>
 
     <footer>
@@ -77,7 +85,6 @@
         const ctx = canvas.getContext('2d');
         
         let originalImage = new Image();
-        let currentRotation = 0;
 
         imageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
@@ -91,7 +98,6 @@
         });
 
         originalImage.onload = () => {
-            currentRotation = 0;
             document.getElementById('resizeWidth').value = originalImage.width;
             resetCanvas(originalImage.width, originalImage.height);
             ctx.drawImage(originalImage, 0, 0);
@@ -102,7 +108,7 @@
             canvas.height = h;
         }
 
-        // [압축]
+        // 압축 제어
         const qualityRange = document.getElementById('qualityRange');
         const qualityVal = document.getElementById('qualityVal');
         qualityRange.addEventListener('input', (e) => {
@@ -110,20 +116,20 @@
         });
 
         document.getElementById('downloadBtn').addEventListener('click', () => {
-            if (!originalImage.src) return alert('이미지를 먼저 업로드해 주세요!');
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
             const quality = parseInt(qualityRange.value) / 100;
             const dataUrl = canvas.toDataURL('image/jpeg', quality);
             const link = document.createElement('a');
-            link.download = 'compressed_image.jpg';
+            link.download = 'edited_image.jpg';
             link.href = dataUrl;
             link.click();
         });
 
-        // [크기 조절]
+        // 리사이즈
         document.getElementById('resizeBtn').addEventListener('click', () => {
-            if (!originalImage.src) return alert('이미지를 먼저 업로드해 주세요!');
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
             const targetWidth = parseInt(document.getElementById('resizeWidth').value);
-            if (!targetWidth || targetWidth <= 0) return alert('올바른 너비를 입력해 주세요.');
+            if (!targetWidth || targetWidth <= 0) return alert('올바른 값을 입력해주세요.');
 
             const ratio = originalImage.height / originalImage.width;
             const targetHeight = targetWidth * ratio;
@@ -136,9 +142,9 @@
             };
         });
 
-        // [회전]
+        // 회전
         function rotate(degree) {
-            if (!originalImage.src) return alert('이미지를 먼저 업로드해 주세요!');
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
             const tempImg = new Image();
             tempImg.src = canvas.toDataURL();
             tempImg.onload = () => {
@@ -151,9 +157,9 @@
         document.getElementById('rotateRightBtn').addEventListener('click', () => rotate(90));
         document.getElementById('rotateLeftBtn').addEventListener('click', () => rotate(-90));
 
-        // [자르기]
+        // 크롭
         document.getElementById('cropBtn').addEventListener('click', () => {
-            if (!originalImage.src) return alert('이미지를 먼저 업로드해 주세요!');
+            if (!originalImage.src) return alert('이미지를 업로드해주세요.');
             const size = Math.min(canvas.width, canvas.height);
             const sourceX = (canvas.width - size) / 2;
             const sourceY = (canvas.height - size) / 2;

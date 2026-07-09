@@ -3,48 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">소소한 꿀팁 읽을거리</title>
-    <meta id="pageDesc" name="description" content="유용한 정보와 재미있는 칼럼을 읽어보세요.">
+    <title id="pageTitle">칼럼 읽기 - 소소한 툴 박스</title>
+    <meta id="pageDesc" name="description" content="유익한 라이프 가이드 및 흥미로운 읽을거리를 전합니다.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1 id="articleTitle">로딩 중...</h1>
-        <nav><a href="index.html">홈으로 가기</a></nav>
+        <h1>소소한 툴 박스</h1>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="gameboy-filter.html">겜보이 필터</a>
+            <a href="eng-address.html">영문주소 변환</a>
+            <a href="image-tools.html">이미지 마법사</a>
+        </nav>
     </header>
+
     <main>
-        <p id="articleDesc" style="color: #718096; font-style: italic; margin-bottom: 20px;"></p>
-        <div id="articleBody" class="result-box" style="background:#fff; border:none; white-space:pre-wrap;">
-            글을 불러오는 중입니다...
-        </div>
+        <article style="margin-bottom: var(--space-section);">
+            <h2 id="articleTitle" style="font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; line-height: 1.4;">로딩 중...</h2>
+            <p id="articleDesc" style="color: var(--color-text-muted); font-size: 1rem; font-style: italic; margin-bottom: 32px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px;"></p>
+            
+            <div class="adsbygoogle-container"></div>
+
+            <div id="articleBody" style="font-size: 1.05rem; line-height: 1.8; color: var(--color-text); white-space: pre-wrap; margin-top: 32px;">
+                글을 불러오는 중입니다...
+            </div>
+        </article>
     </main>
 
+    <footer>
+        <p>© 2026 소소한 툴 박스. All rights reserved.</p>
+    </footer>
+
     <script>
-        // 주소창에서 (?id=content1) 같은 신호를 읽어내는 마법
         const urlParams = new URLSearchParams(window.location.search);
         const contentId = urlParams.get('id');
 
-        // 1단계에서 만든 글 상자(json) 자동으로 열기
         fetch('contents.json')
             .then(response => response.json())
             .then(data => {
-                // 상자 안에서 일치하는 글 찾기
                 const article = data.find(item => item.id === contentId);
                 
                 if (article) {
-                    // 찾은 글을 화면에 자동으로 쏙쏙 끼워넣기
-                    document.title = article.title;
+                    document.title = article.title + " - 소소한 툴 박스";
                     document.getElementById('pageDesc').setAttribute('content', article.description);
                     document.getElementById('articleTitle').innerText = article.title;
                     document.getElementById('articleDesc').innerText = article.description;
                     document.getElementById('articleBody').innerText = article.body;
                 } else {
-                    document.getElementById('articleTitle').innerText = "글을 찾을 수 없어요 😢";
-                    document.getElementById('articleBody').innerText = "올바른 주소인지 확인해 주세요.";
+                    document.getElementById('articleTitle').innerText = "콘텐츠를 찾을 수 없습니다 😢";
+                    document.getElementById('articleBody').innerText = "존재하지 않는 페이지이거나 삭제된 글입니다. 주소를 다시 한 번 확인해 주세요.";
                 }
             })
             .catch(err => {
-                console.error("글을 불러오는데 실패했습니다.", err);
+                console.error("데이터 로드 실패:", err);
             });
     </script>
 </body>
